@@ -3,6 +3,7 @@ package ec.edu.espe.pruebaparcial2galarza.service;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ec.edu.espe.pruebaparcial2galarza.model.Cliente;
 import ec.edu.espe.pruebaparcial2galarza.model.Turno;
@@ -20,6 +21,7 @@ public class ServicioTurno {
 		this.repositorioCliente = repositorioCliente;
 	}
 
+	@Transactional
 	public Turno generarTurno(String cedulaCliente, String nombreCompleto) {
 		Cliente client = repositorioCliente.findByCedula(cedulaCliente);
 		if (client == null) {

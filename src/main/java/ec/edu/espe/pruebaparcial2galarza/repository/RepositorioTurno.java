@@ -8,4 +8,6 @@ public interface RepositorioTurno extends CrudRepository<Turno, String> {
 
 	Turno findFirstByOrderByNumeroTurnoDesc();
 
+	Turno findByNumeroTurno(String numeroTurno);
+
 }

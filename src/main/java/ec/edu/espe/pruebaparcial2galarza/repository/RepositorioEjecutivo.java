@@ -6,4 +6,6 @@ import ec.edu.espe.pruebaparcial2galarza.model.Ejecutivo;
 
 public interface RepositorioEjecutivo extends CrudRepository<Ejecutivo, String> {
 
+	Ejecutivo findByCodigoDeUsuario(String codigoDeUsuario);
+
 }
