@@ -30,15 +30,15 @@ public class ControladorTurnos {
 		return ResponseEntity.ok(turno);
 	}
 
-	@PutMapping("/registrar-inicio-atencion")
+	@PostMapping("/registrar-inicio-atencion")
 	public ResponseEntity<Turno> registrarInicioDeAtencion(@RequestBody String numeroTurno,
 			String codigoDeUsuario) {
 		Turno turno = servicioTurno.registrarInicioAtencion(numeroTurno, codigoDeUsuario);
 		return ResponseEntity.ok(turno);
 	}
 
-	@GetMapping("/registrar-fin-atencion/{numeroTurno}")
-	public ResponseEntity<Turno> registrarFinDeAtencion(@PathVariable("numeroTurno") String numeroTurno) {
+	@PutMapping("/registrar-fin-atencio")
+	public ResponseEntity<Turno> registrarFinDeAtencion(@RequestBody String numeroTurno) {
 		Turno turno = servicioTurno.registroFinAtencion(numeroTurno);
 		return ResponseEntity.ok(turno);
 	}
