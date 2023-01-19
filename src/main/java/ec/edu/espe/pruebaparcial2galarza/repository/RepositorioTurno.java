@@ -6,4 +6,6 @@ import ec.edu.espe.pruebaparcial2galarza.model.Turno;
 
 public interface RepositorioTurno extends CrudRepository<Turno, String> {
 
+	Turno findFirstByOrderByNumeroTurnoDesc();
+
 }
