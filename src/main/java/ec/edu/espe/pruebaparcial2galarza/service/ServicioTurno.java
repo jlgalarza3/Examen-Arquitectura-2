@@ -45,7 +45,7 @@ public class ServicioTurno {
 	}
 
 	@Transactional
-	public void registrarInicioAtencion(String numeroTurno, String codigoDeUsuario) {
+	public Turno registrarInicioAtencion(String numeroTurno, String codigoDeUsuario) {
 		Turno turno = repositorioTurno.findByNumeroTurno(numeroTurno);
 		if (turno != null) {
 			turno = generarTurno(numeroTurno, codigoDeUsuario);
@@ -60,10 +60,11 @@ public class ServicioTurno {
 		turno.setFechaHoraInicioAtencion(new Date());
 		turno.setCodigoUsuarioEjecutivo(codigoDeUsuario);
 		repositorioTurno.save(turno);
+		return turno;
 	}
 
 	@Transactional
-	public void registroFinAtencion(String numeroTurno) {
+	public Turno registroFinAtencion(String numeroTurno) {
 		Turno turno = repositorioTurno.findByNumeroTurno(numeroTurno);
 		if (turno == null) {
 			throw new IllegalArgumentException("Numero de turno no existe");
@@ -76,9 +77,10 @@ public class ServicioTurno {
 		}
 		turno.setFechaHoraFinAtencion(new Date());
 		repositorioTurno.save(turno);
+		return turno;
 	}
 
-	public void calificarTurno(String cedulaCliente, String numeroTurno, Integer calificacion) {
+	public Turno calificarTurno(String cedulaCliente, String numeroTurno, Integer calificacion) {
 		Cliente cliente = repositorioCliente.findByCedula(cedulaCliente);
 		if (cliente == null) {
 			throw new IllegalArgumentException("Cédula de cliente no existe");
@@ -98,6 +100,7 @@ public class ServicioTurno {
 		}
 		turno.setCalificacion(calificacion);
 		repositorioTurno.save(turno);
+		return turno;
 	}
 
 	private String generarNumeroSiguienteTurno() {
