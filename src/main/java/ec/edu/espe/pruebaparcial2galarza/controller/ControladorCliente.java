@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import ec.edu.espe.pruebaparcial2galarza.controller.dto.ClienteMapper;
+import ec.edu.espe.pruebaparcial2galarza.controller.dto.ClienteRS;
 import ec.edu.espe.pruebaparcial2galarza.model.Cliente;
 import ec.edu.espe.pruebaparcial2galarza.service.ServicioCliente;
 
@@ -19,9 +21,11 @@ public class ControladorCliente {
 	}
 
 	@GetMapping("/{cedula}")
-	public ResponseEntity<Cliente> obtenerInformacionCliente(String cedula) {
+	public ResponseEntity<ClienteRS> obtenerInformacionCliente(String cedula) {
 		Cliente cliente = servicioCliente.obtenerInformacionCliente(cedula);
-		return ResponseEntity.ok(cliente);
+		ClienteRS clienteRS = ClienteMapper.mapToClienteRS(cliente);
+
+		return ResponseEntity.ok(clienteRS);
 	}
 
 }
