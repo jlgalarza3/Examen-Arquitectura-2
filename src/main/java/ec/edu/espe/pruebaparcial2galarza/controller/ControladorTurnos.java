@@ -37,7 +37,7 @@ public class ControladorTurnos {
 		return ResponseEntity.ok(turno);
 	}
 
-	@PutMapping("/registrar-fin-atencio")
+	@PutMapping("/registrar-fin-atencion")
 	public ResponseEntity<Turno> registrarFinDeAtencion(@RequestBody String numeroTurno) {
 		Turno turno = servicioTurno.registroFinAtencion(numeroTurno);
 		return ResponseEntity.ok(turno);
