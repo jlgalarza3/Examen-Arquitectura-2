@@ -1,5 +1,6 @@
-package ec.edu.espe.pruebaparcial2galarza.controller.dto;
+package ec.edu.espe.pruebaparcial2galarza.controller.mapper;
 
+import ec.edu.espe.pruebaparcial2galarza.controller.dto.ClienteRS;
 import ec.edu.espe.pruebaparcial2galarza.model.Cliente;
 
 public class ClienteMapper {

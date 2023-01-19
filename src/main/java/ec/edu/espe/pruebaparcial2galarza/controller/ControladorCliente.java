@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import ec.edu.espe.pruebaparcial2galarza.controller.dto.ClienteMapper;
 import ec.edu.espe.pruebaparcial2galarza.controller.dto.ClienteRS;
+import ec.edu.espe.pruebaparcial2galarza.controller.mapper.ClienteMapper;
 import ec.edu.espe.pruebaparcial2galarza.model.Cliente;
 import ec.edu.espe.pruebaparcial2galarza.service.ServicioCliente;
 
