@@ -42,4 +42,20 @@ public class ServicioEjecutivo {
 		repositorioTurno.save(turno);
 	}
 
+	@Transactional
+	public void registerEndOfAttention(String numeroTurno) {
+		Turno turno = repositorioTurno.findByNumeroTurno(numeroTurno);
+		if (turno == null) {
+			throw new IllegalArgumentException("Numero de turno no existe");
+		}
+		if (turno.getFechaHoraInicioAtencion() == null) {
+			throw new IllegalArgumentException("La atención aún no ha comenzado");
+		}
+		if (turno.getFechaHoraFinAtencion() != null) {
+			throw new IllegalArgumentException("La atención ya ha finalizado");
+		}
+		turno.setFechaHoraFinAtencion(new Date());
+		repositorioTurno.save(turno);
+	}
+
 }
