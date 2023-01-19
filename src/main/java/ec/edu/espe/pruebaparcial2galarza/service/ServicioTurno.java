@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ec.edu.espe.pruebaparcial2galarza.model.Cliente;
+import ec.edu.espe.pruebaparcial2galarza.model.Ejecutivo;
 import ec.edu.espe.pruebaparcial2galarza.model.Turno;
 import ec.edu.espe.pruebaparcial2galarza.repository.RepositorioCliente;
+import ec.edu.espe.pruebaparcial2galarza.repository.RepositorioEjecutivo;
 import ec.edu.espe.pruebaparcial2galarza.repository.RepositorioTurno;
 
 @Service
@@ -15,10 +17,13 @@ public class ServicioTurno {
 
 	private final RepositorioTurno repositorioTurno;
 	private final RepositorioCliente repositorioCliente;
+	private final RepositorioEjecutivo repositorioEjecutivo;
 
-	public ServicioTurno(RepositorioTurno repositorioTurno, RepositorioCliente repositorioCliente) {
+	public ServicioTurno(RepositorioTurno repositorioTurno, RepositorioCliente repositorioCliente,
+			RepositorioEjecutivo repositorioEjecutivo) {
 		this.repositorioTurno = repositorioTurno;
 		this.repositorioCliente = repositorioCliente;
+		this.repositorioEjecutivo = repositorioEjecutivo;
 	}
 
 	@Transactional
@@ -37,6 +42,40 @@ public class ServicioTurno {
 
 		return repositorioTurno.save(turno);
 
+	}
+
+	@Transactional
+	public void registrarInicioAtencion(String numeroTurno, String codigoDeUsuario) {
+		Turno turno = repositorioTurno.findByNumeroTurno(numeroTurno);
+		if (turno != null) {
+			turno = generarTurno(numeroTurno, codigoDeUsuario);
+		}
+		Ejecutivo ejecutivo = repositorioEjecutivo.findByCodigoDeUsuario(codigoDeUsuario);
+		if (ejecutivo == null) {
+			throw new IllegalArgumentException("Ejecutivo no existe");
+		}
+		if (turno.getFechaHoraInicioAtencion() != null) {
+			throw new IllegalArgumentException("La atención ya ha comenzado");
+		}
+		turno.setFechaHoraInicioAtencion(new Date());
+		turno.setCodigoUsuarioEjecutivo(codigoDeUsuario);
+		repositorioTurno.save(turno);
+	}
+
+	@Transactional
+	public void registroFinAtencion(String numeroTurno) {
+		Turno turno = repositorioTurno.findByNumeroTurno(numeroTurno);
+		if (turno == null) {
+			throw new IllegalArgumentException("Numero de turno no existe");
+		}
+		if (turno.getFechaHoraInicioAtencion() == null) {
+			throw new IllegalArgumentException("La atención aún no ha comenzado");
+		}
+		if (turno.getFechaHoraFinAtencion() != null) {
+			throw new IllegalArgumentException("La atención ya ha finalizado");
+		}
+		turno.setFechaHoraFinAtencion(new Date());
+		repositorioTurno.save(turno);
 	}
 
 	public void calificarTurno(String cedulaCliente, String numeroTurno, Integer calificacion) {
