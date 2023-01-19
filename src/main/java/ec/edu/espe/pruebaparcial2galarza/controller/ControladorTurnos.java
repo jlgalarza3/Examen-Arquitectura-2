@@ -24,7 +24,7 @@ public class ControladorTurnos {
 		this.servicioTurno = servicioTurno;
 	}
 
-	@PostMapping("/generar-turno")
+	@PostMapping(value = "/generar-turno")
 	public ResponseEntity<Turno> generarTurno(@RequestBody String cedulaCliente,
 			String nombreCliente) {
 		try {
@@ -35,7 +35,7 @@ public class ControladorTurnos {
 		}
 	}
 
-	@PostMapping("/registrar-inicio-atencion")
+	@PostMapping(value = "/registrar-inicio-atencion")
 	public ResponseEntity<Turno> registrarInicioDeAtencion(@RequestBody String numeroTurno,
 			String codigoDeUsuario) {
 		try {
@@ -46,7 +46,7 @@ public class ControladorTurnos {
 		}
 	}
 
-	@PutMapping("/registrar-fin-atencion")
+	@PutMapping(value = "/registrar-fin-atencion")
 	public ResponseEntity<Turno> registrarFinDeAtencion(@RequestBody String numeroTurno) {
 		try {
 			Turno turno = servicioTurno.registroFinAtencion(numeroTurno);
@@ -56,7 +56,7 @@ public class ControladorTurnos {
 		}
 	}
 
-	@GetMapping("/calificar-atencion/{cedulaCliente}/{numeroTurno}/{calificacion}")
+	@GetMapping(value = "/calificar-atencion/{cedulaCliente}/{numeroTurno}/{calificacion}")
 	public ResponseEntity<Turno> calificarAtencion(@PathVariable("cedulaCliente") String cedulaCliente,
 			@PathVariable("numeroTurno") String numeroTurno,
 			@PathVariable("calificacion") Integer calificacion) {

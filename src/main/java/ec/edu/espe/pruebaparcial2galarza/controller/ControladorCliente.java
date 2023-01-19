@@ -21,7 +21,7 @@ public class ControladorCliente {
 		this.servicioCliente = servicioCliente;
 	}
 
-	@GetMapping("/{cedula}")
+	@GetMapping(value = "/{cedula}")
 	public ResponseEntity<ClienteRS> obtenerInformacionCliente(String cedula) {
 		try {
 			Cliente cliente = servicioCliente.obtenerInformacionCliente(cedula);
