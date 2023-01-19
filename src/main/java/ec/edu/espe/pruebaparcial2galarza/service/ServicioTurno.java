@@ -39,6 +39,28 @@ public class ServicioTurno {
 
 	}
 
+	public void calificarTurno(String cedulaCliente, String numeroTurno, Integer calificacion) {
+		Cliente cliente = repositorioCliente.findByCedula(cedulaCliente);
+		if (cliente == null) {
+			throw new IllegalArgumentException("Cédula de cliente no existe");
+		}
+		Turno turno = repositorioTurno.findByNumeroTurno(numeroTurno);
+		if (turno == null) {
+			throw new IllegalArgumentException("Turno no existe");
+		}
+		if (!turno.getCedulaCliente().equals(cedulaCliente)) {
+			throw new IllegalArgumentException("Turno no pertenece al cliente");
+		}
+		if (turno.getFechaHoraFinAtencion() == null) {
+			throw new IllegalArgumentException("Turno no ha sido atendido");
+		}
+		if (turno.getCalificacion() != null) {
+			throw new IllegalArgumentException("Turno ya ha sido calificado");
+		}
+		turno.setCalificacion(calificacion);
+		repositorioTurno.save(turno);
+	}
+
 	private String generarNumeroSiguienteTurno() {
 		Turno numeroTurno = repositorioTurno.findFirstByOrderByNumeroTurnoDesc();
 		if (numeroTurno == null) {
